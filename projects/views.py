@@ -14,5 +14,10 @@ def projects(request):
     context = {'msg': msg, 'age': age, 'projectList':projectList}
     return render(request, 'projects/projects.html', context)
 
-def project(request):
-    return render(request,'projects/single-project.html')
+def project(request,pk):
+    projectObj = None
+    for i in projectList:
+        if i['id'] == pk:
+            projectObj = i
+    context = {'project':projectObj}
+    return render(request,'projects/single-project.html', context)
