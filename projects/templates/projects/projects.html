@@ -1,9 +1,26 @@
-{% include 'navbar.html' %}
+{% extends 'main.html' %} {% block content %}
 
 <h1>PROJECTS TEMPLATE</h1>
+<h2>{{ msg }}</h2>
+
+{% if age > 30 %}
+
+<p>You're Old</p>
+
+{% elif age == 30 %}
+
+<p>You're exactly 30 years old</p>
+
+{% else %}
+
+<p>You're Young</p>
+
+{% endif %}
 <p>
   Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam libero
   beatae accusamus iusto voluptate amet cum? Natus repellendus quo aspernatur
   ducimus sapiente architecto maiores. Eaque rem exercitationem laudantium
   molestias voluptas?
 </p>
+
+{% endblock content %}
