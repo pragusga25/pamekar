@@ -23,4 +23,12 @@
   molestias voluptas?
 </p>
 
+<ul>
+  {% for project in projectList %}
+  <li>Title: {{ project.title }}</li>
+  <li>Description: {{ project.description }}</li>
+  </br>
+  {% endfor %}
+</ul>
+
 {% endblock content %}
