@@ -1,20 +1,26 @@
 {% extends 'main.html' %} {% block content %}
 
-<h1>PROJECTS TEMPLATE</h1>
+<h1>PROJECTS</h1>
 
-<p>
-  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam libero
-  beatae accusamus iusto voluptate amet cum? Natus repellendus quo aspernatur
-  ducimus sapiente architecto maiores. Eaque rem exercitationem laudantium
-  molestias voluptas?
-</p>
-
-<ul>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Project</th>
+    <th>Ratio</th>
+    <th>Votes</th>
+    <th>Created At</th>
+    <th></th>
+  </tr>
   {% for project in projects %}
-  <li>Title: <a href="{% url 'project' project.id %}">{{ project.title }}</a></li>
-  <li>Description: {{ project.description }}</li>
-  </br>
+  <tr>
+    <td>{{project.id}}</td>
+    <td>{{project.title}}</td>
+    <td>{{project.vote_ratio}}%</td>
+    <td>{{project.vote_total}}</td>
+    <td>{{project.created_at}}</td>
+    <td><a href="{% url 'project' project.id %}">View</a></td>
+  </tr>
   {% endfor %}
-</ul>
+</table>
 
 {% endblock content %}
