@@ -1,21 +1,7 @@
 {% extends 'main.html' %} {% block content %}
 
 <h1>PROJECTS TEMPLATE</h1>
-<h2>{{ msg }}</h2>
 
-{% if age > 30 %}
-
-<p>You're Old</p>
-
-{% elif age == 30 %}
-
-<p>You're exactly 30 years old</p>
-
-{% else %}
-
-<p>You're Young</p>
-
-{% endif %}
 <p>
   Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam libero
   beatae accusamus iusto voluptate amet cum? Natus repellendus quo aspernatur
@@ -24,7 +10,7 @@
 </p>
 
 <ul>
-  {% for project in projectList %}
+  {% for project in projects %}
   <li>Title: <a href="{% url 'project' project.id %}">{{ project.title }}</a></li>
   <li>Description: {{ project.description }}</li>
   </br>
