@@ -8,6 +8,7 @@ class Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True, blank=True)
+    username = models.CharField(max_length=200, null=True, blank=True)
     email = models.CharField(max_length=200, null=True, blank=True)
     short_intro = models.CharField(max_length=200, null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
