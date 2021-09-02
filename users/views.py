@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Profile
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from .forms import MyRegistrationForm
 
 # Create your views here.
 
@@ -63,14 +63,14 @@ def logoutUser(request):
 
 def registerUser(request):
     page = "register"
-    form = UserCreationForm()
+    form = MyRegistrationForm()
     context = {"page": page, "form": form}
 
     if request.user.is_authenticated:
         return redirect("profiles")
 
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = MyRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
@@ -79,5 +79,7 @@ def registerUser(request):
             login(request, user)
 
             return redirect("profiles")
+        else:
+            messages.error(request, "Invalid form")
 
     return render(request, "users/login-register.html", context)
