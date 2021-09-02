@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Profile
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 
@@ -28,6 +29,9 @@ def userProfile(request, pk):
 
 
 def loginUser(request):
+    page = "login"
+    context = {"page": page}
+
     if request.user.is_authenticated:
         return redirect("profiles")
 
@@ -48,10 +52,41 @@ def loginUser(request):
         else:
             messages.error(request, "Invalid username or password")
 
-    return render(request, "users/login-register.html")
+    return render(request, "users/login-register.html", context)
 
 
 def logoutUser(request):
     logout(request)
     messages.success(request, "Logged out successfully")
     return redirect("login")
+
+
+def registerUser(request):
+    page = "register"
+    form = UserCreationForm()
+    context = {"page": page, "form": form}
+
+    if request.user.is_authenticated:
+        return redirect("profiles")
+
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password1"]
+        confirmPassword = request.POST["password2"]
+
+        if password != confirmPassword:
+            messages.error(request, "Passwords do not match")
+            return redirect("register")
+
+        try:
+            user = User.objects.get(username=username)
+            messages.error(request, "Username already exists")
+            return redirect("register")
+
+        except:
+            user = User.objects.create_user(username, password=password)
+            user.save()
+            messages.success(request, "Registered successfully")
+            return redirect("profiles")
+
+    return render(request, "users/login-register.html", context)
