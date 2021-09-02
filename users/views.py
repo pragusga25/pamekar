@@ -70,23 +70,14 @@ def registerUser(request):
         return redirect("profiles")
 
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password1"]
-        confirmPassword = request.POST["password2"]
-
-        if password != confirmPassword:
-            messages.error(request, "Passwords do not match")
-            return redirect("register")
-
-        try:
-            user = User.objects.get(username=username)
-            messages.error(request, "Username already exists")
-            return redirect("register")
-
-        except:
-            user = User.objects.create_user(username, password=password)
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
             user.save()
-            messages.success(request, "Registered successfully")
+            messages.success(request, "Account created successfully")
+            login(request, user)
+
             return redirect("profiles")
 
     return render(request, "users/login-register.html", context)
