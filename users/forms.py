@@ -13,3 +13,6 @@ class MyRegistrationForm(UserCreationForm):
             "password1",
             "password2",
         )
+        labels = {
+            "first_name": "Name",
+        }
