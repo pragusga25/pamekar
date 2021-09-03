@@ -16,3 +16,9 @@ class MyRegistrationForm(UserCreationForm):
         labels = {
             "first_name": "Name",
         }
+
+    def __init__(self, *args, **kwargs):
+        super(MyRegistrationForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs["class"] = "input"
